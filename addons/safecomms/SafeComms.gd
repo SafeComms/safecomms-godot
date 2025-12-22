@@ -63,7 +63,7 @@ func moderate_text(text: String, language: String = "en", replace: bool = false,
 
 ## Moderate an image (URL or Base64).
 ## Returns a Dictionary with the moderation result.
-func moderate_image(image: String, language: String = "en", moderation_profile_id: String = "") -> Dictionary:
+func moderate_image(image: String, language: String = "en", moderation_profile_id: String = "", enable_ocr: bool = false, enhanced_ocr: bool = false, extract_metadata: bool = false) -> Dictionary:
 	if api_key.is_empty():
 		push_error("SafeComms: API Key is not set.")
 		return {"error": "API Key not set"}
@@ -76,7 +76,10 @@ func moderate_image(image: String, language: String = "en", moderation_profile_i
 	
 	var payload = {
 		"image": image,
-		"language": language
+		"language": language,
+		"enableOcr": enable_ocr,
+		"enhancedOcr": enhanced_ocr,
+		"extractMetadata": extract_metadata
 	}
 	
 	if not moderation_profile_id.is_empty():
